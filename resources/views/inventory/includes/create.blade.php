@@ -16,9 +16,18 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">Seleccionar Sku existente</label>
-                        <select class="form-control" id="exampleFormControlSelect1">
-                            <option>1</option>
-                        </select>
+                        @if (count($skus))
+                            <select class="form-control" name="sku" id="sku">
+                            <option value="">-- seleccione --</option>
+                                @foreach ($skus as $s)
+                                    <option value="{{$s->id}}">{{$s->sku}}</option>
+                                @endforeach
+                            </select>
+                        @else
+                            <select class="form-control" name="sku" id="sku" disabled>
+                                <option value="">-- no existen skus --</option>
+                            </select>
+                        @endif
                     </div>
                     <div class="form-group">
                         <label for="product">Producto</label>

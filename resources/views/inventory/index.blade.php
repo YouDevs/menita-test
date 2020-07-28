@@ -17,6 +17,15 @@
                     Agregar producto
                 </button>
             </div>
+            @if( $errors->count() )
+            <div class="row">
+                <div class="col-12">
+                    @foreach ($errors->all() as $error)
+                        <p class="bg-light text-danger">{{ $error }}</p>
+                    @endforeach
+                </div>
+            </div>
+            @endif
             <div class="col-12">
                 <table class="table table-dark">
                     <thead>
@@ -33,26 +42,26 @@
                     <tbody>
                     @foreach ($products as $p)
                         <tr>
-                            <th scope="row">{{$p->sku}}</th>
+                            <th scope="row">{{$p->sku->sku}}</th>
                             <td>{{$p->product}}</td>
                             <td>{{$p->list_price}}</td>
                             <td>{{$p->wholesale_price}}</td>
                             <td>{{$p->retail_price}}</td>
                             <td>{{$p->quantity}}</td>
                             <td>
-                                <button type="button" class="btn btn-warning mb-4 text-right" data-toggle="modal" data-target="#outputModal">
+                                <button type="button" class="btn btn-warning mb-4 text-right btn-output" data-toggle="modal" data-target="#outputModal-{{$p->id}}">
                                     Salida
                                 </button>
-                                <button type="button" class="btn btn-info mb-4 text-right" data-toggle="modal" data-target="#editModal">
+                                <button type="button" class="btn btn-info mb-4 text-right" data-toggle="modal" data-target="#editModal-{{$p->id}}">
                                     Editar
                                 </button>
                                 <button type="button" class="btn btn-danger mb-4 text-right">
                                     Eliminar
                                 </button>
                             </td>
+                            @include('inventory.includes.output')
+                            @include('inventory.includes.edit')
                         </tr>
-                        @include('inventory.includes.output')
-                        @include('inventory.includes.edit')
                     @endforeach
                     </tbody>
                 </table>

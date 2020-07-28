@@ -1,27 +1,31 @@
 <!-- Modal -->
-<div class="modal fade" id="outputModal" tabindex="-1" role="dialog" aria-labelledby="outputModal" aria-hidden="true">
+<div class="modal fade" id="outputModal-{{$p->id}}" tabindex="-1" role="dialog" aria-labelledby="outputModal" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="outputModal">Salida de producto</h5>
+            <h5 class="modal-title" id="outputModal">Salida de producto {{$p->product}}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
             </div>
-            <form action="{{route('inventory-create')}}" method="POST">
+            <form action="{{route('inventory-output', $p->id)}}" method="POST">
                 {{ csrf_field() }}
                 <div class="modal-body">
                     <div class="form-group">
                       <label for="exampleFormControlInput1">Crear Sku</label>
-                      <input type="text" name="new_sku" class="form-control" id="new-sku" placeholder="sku-code" value="{{$p->sku}}" readonly>
+                      <input type="text" name="new_sku" class="form-control" placeholder="sku-code" value="{{$p->sku->sku}}" readonly>
                     </div>
                     <div class="form-group">
                         <label for="product">Producto</label>
-                        <input type="text" name="product" class="form-control" id="product" placeholder="12.00" value="{{$p->product}}" readonly>
+                        <input type="text" name="product" class="form-control" placeholder="12.00" value="{{$p->product}}" readonly>
                     </div>
                     <div class="form-group">
-                        <label for="quantity">Cantidad</label>
-                        <input type="number" name="quantity" class="form-control" id="quantity" placeholder="100" value="{{$p->quantity}}">
+                        <label for="quantity">Cantidad Actual de producto</label>
+                        <input type="number" name="quantity" class="form-control" placeholder="100" value="{{$p->quantity}}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="quantity">Cantidad que sale</label>
+                        <input type="number" name="output" class="form-control output" placeholder="100">
                     </div>
                 </div>
                 <div class="modal-footer">
